@@ -18,11 +18,13 @@ let dealerHandHtml = document.getElementById('dealerHand');
 console.log(playerHandHtml, dealerHandHtml);
 let hitButton = document.getElementById('hit');
 let stayButton = document.getElementById('stay');
+let nextHandButton = document.getElementById('nextHand');
 
 
 /*----- event listeners -----*/
 hitButton.addEventListener('click', playerHit);
 stayButton.addEventListener('click', dealerChoice);
+nextHandButton.addEventListener('click', init);
 
 
 /*----- functions -----*/
@@ -59,12 +61,16 @@ function shuffleDeck() {
     
 }
 // play events
-
+/*
 shuffleDeck();
 dealToPlayer();
 dealToDealer();
 displayPlayerHand();
 displayDealerHand();
+*/
+
+init();
+
 //compareHands();
 // make function that takes first two cards of deck and assigns to player hand. 
 function dealToPlayer() {
@@ -111,7 +117,7 @@ function compareHands() {
   }
   console.log(playerTotal);
 
-  if(dealerTotal >= playerTotal) {
+  if(dealerTotal >= playerTotal && dealerTotal <= 21) {
     winner = 'dealer';
     console.log('Dealer won with ' + dealerTotal);
   } else {
@@ -150,39 +156,66 @@ function playerCheck() {
   console.log(playerTotal);
   if(playerTotal === 21 && playerHand.length === 2) {
     console.log('Black Jack you win!');
+    winner = 'player';
   } else if(playerTotal > 21) {
     console.log('Thats a bust. You lose.');
+    winner = 'dealer';
   }
 }
 
 function playerHit() {
-  console.log('hit');
-  let addedCard = shuffledDeck.pop();
-  playerHand.push(addedCard);
-  console.log(addedCard);
-  console.log(playerHand);
-  playerCheck();
-  render();
+  if(winner === null) {
+    console.log('hit');
+    let addedCard = shuffledDeck.pop();
+    playerHand.push(addedCard);
+    console.log(addedCard);
+    console.log(playerHand);
+    playerCheck();
+    render();
+  } else {
+    return;
+  }
+  
 }
 
 function dealerChoice() {
-  let dealerTotal = 0;
+  if(winner === null) {
+    let dealerTotal = 0;
   
-  for(let i = 0; i < dealerHand.length; i++) {
-    dealerTotal += dealerHand[i].value;
+    for(let i = 0; i < dealerHand.length; i++) {
+      dealerTotal += dealerHand[i].value;
+    }
+    while(dealerTotal < 17) {
+      let addedCard = shuffledDeck.pop();
+      dealerHand.push(addedCard);
+      dealerTotal += addedCard.value;
+    }
+    if(dealerTotal > 21) {
+      winner = 'player';
+      console.log('dealer bust!');
+    }
+    compareHands();
+    render();
+    console.log(dealerTotal);
+    
+    } else {
+        return;
   }
-  while(dealerTotal < 17) {
-    let addedCard = shuffledDeck.pop();
-    dealerHand.push(addedCard);
-    dealerTotal += addedCard.value;
-  }
-  compareHands();
-  render();
-  console.log(dealerTotal);
+  
 }
 
 function render() {
   displayDealerHand();
   displayPlayerHand();
 
+}
+
+function init() {
+  playerHand = [];
+  dealerHand = [];
+  winner = null;
+  shuffleDeck();
+  dealToPlayer();
+  dealToDealer();
+  render();
 }
