@@ -17,8 +17,10 @@ let dealerHandHtml = document.getElementById('dealerHand');
 console.log(playerHandHtml, dealerHandHtml);
 let hitButton = document.getElementById('hit');
 
+
 /*----- event listeners -----*/
 hitButton.addEventListener('click', playerHit);
+
 
 /*----- functions -----*/
 
@@ -75,6 +77,7 @@ function dealToDealer() {
 }
 // make function that takes player hand values and displays them in html
 function displayPlayerHand() {
+  playerHandHtml.innerHTML = '';
     playerHand.forEach(function(card, idx) {
         let c = `<div class = "card ${card.face}"></div>`
         playerHandHtml.innerHTML += c;
@@ -85,11 +88,11 @@ function displayPlayerHand() {
 
 // make function that takes dealer hand values and displays them in html
 function displayDealerHand() {
-    dealerHand.forEach(function(card, idx) {
-        let c = `<div class = "card ${card.face}"></div>`
-        dealerHandHtml.innerHTML += c;
-
-    })
+  dealerHandHtml.innerHTML = '';
+  dealerHand.forEach(function(card, idx) {
+    let c = `<div class = "card ${card.face}"></div>`
+    dealerHandHtml.innerHTML += c;
+  })
 }
 
 function compareHands() {
@@ -105,6 +108,13 @@ function compareHands() {
   }
   console.log(playerTotal);
 
+  if(playerTotal === 21 && playerHand.length === 2) {
+    console.log('Black Jack you win!');
+  } else if(playerTotal > 21) {
+    console.log('Thats a bust. You lose.');
+  }
+
+
 
   /*
   dealerHandValue = dealerHand.forEach(function(card) {
@@ -116,13 +126,31 @@ function compareHands() {
   */
 }
 
+function playerCheck() {
+  let playerTotal = 0;
+  for(let i = 0; i < playerHand.length; i++) {
+    playerTotal += playerHand[i].value;
+  }
+  console.log(playerTotal);
+  if(playerTotal === 21 && playerHand.length === 2) {
+    console.log('Black Jack you win!');
+  } else if(playerTotal > 21) {
+    console.log('Thats a bust. You lose.');
+  }
+}
+
 function playerHit() {
   console.log('hit');
   let addedCard = shuffledDeck.pop();
   playerHand.push(addedCard);
-  let c = `<div class = "card ${addedCard.face}"></div>`
-  playerHandHtml.innerHTML += c;
   console.log(addedCard);
   console.log(playerHand);
-  compareHands();
+  playerCheck();
+  render();
+}
+
+function render() {
+  displayDealerHand();
+  displayPlayerHand();
+
 }
