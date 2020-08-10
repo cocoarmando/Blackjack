@@ -10,16 +10,19 @@ let playerHand = [];
 let dealerHand = [];
 let playerHandValue;
 let dealerHandValue;
+let winner = null;
 
 /*----- cached element references -----*/
 let playerHandHtml = document.getElementById('playerHand');
 let dealerHandHtml = document.getElementById('dealerHand');
 console.log(playerHandHtml, dealerHandHtml);
 let hitButton = document.getElementById('hit');
+let stayButton = document.getElementById('stay');
 
 
 /*----- event listeners -----*/
 hitButton.addEventListener('click', playerHit);
+stayButton.addEventListener('click', dealerChoice);
 
 
 /*----- functions -----*/
@@ -62,7 +65,7 @@ dealToPlayer();
 dealToDealer();
 displayPlayerHand();
 displayDealerHand();
-compareHands();
+//compareHands();
 // make function that takes first two cards of deck and assigns to player hand. 
 function dealToPlayer() {
     playerHand.push(shuffledDeck.pop())
@@ -108,11 +111,24 @@ function compareHands() {
   }
   console.log(playerTotal);
 
+  if(dealerTotal >= playerTotal) {
+    winner = 'dealer';
+    console.log('Dealer won with ' + dealerTotal);
+  } else {
+    winner = 'player';
+    console.log('Player won with ' + playerTotal);
+  }
+}
+  /*
+
   if(playerTotal === 21 && playerHand.length === 2) {
+    winner = 'Player';
     console.log('Black Jack you win!');
   } else if(playerTotal > 21) {
     console.log('Thats a bust. You lose.');
   }
+
+  */
 
 
 
@@ -124,7 +140,7 @@ function compareHands() {
   })
   console.log(total);
   */
-}
+
 
 function playerCheck() {
   let playerTotal = 0;
@@ -147,6 +163,22 @@ function playerHit() {
   console.log(playerHand);
   playerCheck();
   render();
+}
+
+function dealerChoice() {
+  let dealerTotal = 0;
+  
+  for(let i = 0; i < dealerHand.length; i++) {
+    dealerTotal += dealerHand[i].value;
+  }
+  while(dealerTotal < 17) {
+    let addedCard = shuffledDeck.pop();
+    dealerHand.push(addedCard);
+    dealerTotal += addedCard.value;
+  }
+  compareHands();
+  render();
+  console.log(dealerTotal);
 }
 
 function render() {
