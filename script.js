@@ -11,6 +11,7 @@ let dealerHand = [];
 let playerHandValue;
 let dealerHandValue;
 let winner = null;
+let initialFaceDown; 
 
 /*----- cached element references -----*/
 let playerHandHtml = document.getElementById('playerHand');
@@ -100,7 +101,14 @@ function displayDealerHand() {
   dealerHandHtml.innerHTML = '';
   dealerHand.forEach(function(card, idx) {
     let c = `<div class = "card ${card.face}"></div>`
+    if(idx === 1 && initialFaceDown) {
+       c = `<div class = "card back-red"></div>`
+       console.log(initialFaceDown);
+       initialFaceDown = false;
+    } 
+    //let c = `<div class = "card ${card.face}"></div>`
     dealerHandHtml.innerHTML += c;
+    
   })
 }
 
@@ -171,6 +179,7 @@ function playerHit() {
     console.log(addedCard);
     console.log(playerHand);
     playerCheck();
+    initialFaceDown = true;
     render();
   } else {
     return;
@@ -214,6 +223,7 @@ function init() {
   playerHand = [];
   dealerHand = [];
   winner = null;
+  initialFaceDown = true;
   shuffleDeck();
   dealToPlayer();
   dealToDealer();
