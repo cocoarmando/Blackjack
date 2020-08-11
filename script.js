@@ -103,7 +103,7 @@ function displayDealerHand() {
     let c = `<div class = "card ${card.face}"></div>`
     if(idx === 1 && initialFaceDown) {
        c = `<div class = "card back-red"></div>`
-       console.log(initialFaceDown);
+       //console.log(initialFaceDown);
        initialFaceDown = false;
     } 
     //let c = `<div class = "card ${card.face}"></div>`
@@ -114,14 +114,31 @@ function displayDealerHand() {
 
 function compareHands() {
   let dealerTotal = 0;
+  let numAcesDealer = 0;
+  let numAcesPlayer = 0;
   for(let i = 0; i < dealerHand.length; i++) {
     dealerTotal += dealerHand[i].value;
+    if(dealerHand[i].value === 11){
+      numAcesDealer += 1;
+      console.log(numAcesDealer);
+    }
+  }
+  if(dealerTotal > 21 && numAcesDealer >= 1) {
+    dealerTotal -= 10;
+    numAcesDealer -= 1;
   }
   console.log(dealerTotal);
 
   let playerTotal = 0;
   for(let i = 0; i < playerHand.length; i++) {
     playerTotal += playerHand[i].value;
+    if(playerHand[i].value === 11) {
+      numAcesPlayer += 1;
+    }
+  }
+  if(playerTotal > 21 && numAcesPlayer >= 1) {
+    playerTotal -= 10;
+    numAcesPlayer -= 1;
   }
   console.log(playerTotal);
 
@@ -158,13 +175,21 @@ function compareHands() {
 
 function playerCheck() {
   let playerTotal = 0;
+  let numAces = 0;
   for(let i = 0; i < playerHand.length; i++) {
     playerTotal += playerHand[i].value;
+    if(playerHand[i].value === 11) {
+      numAces += 1;
+    }
   }
   console.log(playerTotal);
   if(playerTotal === 21 && playerHand.length === 2) {
     console.log('Black Jack you win!');
     winner = 'player';
+  } else if(playerTotal > 21 && numAces >= 1) {
+    playerTotal -= 10;
+    numAces -= 1;
+    console.log(playerTotal);
   } else if(playerTotal > 21) {
     console.log('Thats a bust. You lose.');
     winner = 'dealer';
