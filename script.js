@@ -224,11 +224,19 @@ function playerHit() {
 }
 
 function dealerChoice() {
+  let numAces = 0;
   if(winner === null) {
     let dealerTotal = 0;
   
     for(let i = 0; i < dealerHand.length; i++) {
       dealerTotal += dealerHand[i].value;
+      if(dealerHand[i].value === 11) {
+        numAces += 1;
+      }
+    }
+    while(dealerTotal > 21 && numAces) {
+      dealerTotal -= 10;
+      numAces--; 
     }
     while(dealerTotal < 17) {
       let addedCard = shuffledDeck.pop();
