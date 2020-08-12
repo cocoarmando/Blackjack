@@ -123,10 +123,14 @@ function compareHands() {
       console.log(numAcesDealer);
     }
   }
-  if(dealerTotal > 21 && numAcesDealer >= 1) {
+  while(dealerTotal > 21 && numAcesDealer) {
     dealerTotal -= 10;
-    numAcesDealer -= 1;
+    numAcesDealer--; 
   }
+  //if(dealerTotal > 21 && numAcesDealer >= 1) {
+  //  dealerTotal -= 10;
+  //  numAcesDealer -= 1;
+ // }
   console.log(dealerTotal);
 
   let playerTotal = 0;
@@ -136,10 +140,15 @@ function compareHands() {
       numAcesPlayer += 1;
     }
   }
-  if(playerTotal > 21 && numAcesPlayer >= 1) {
+  while(playerTotal > 21 && numAcesPlayer) {
     playerTotal -= 10;
-    numAcesPlayer -= 1;
+    numAcesPlayer--;
   }
+
+  //if(playerTotal > 21 && numAcesPlayer >= 1) {
+   // playerTotal -= 10;
+   // numAcesPlayer -= 1;
+  //}
   console.log(playerTotal);
 
   if(dealerTotal >= playerTotal && dealerTotal <= 21) {
@@ -182,15 +191,17 @@ function playerCheck() {
       numAces += 1;
     }
   }
+  while(playerTotal > 21 && numAces) {
+    playerTotal -= 10;
+    numAces--; 
+  }
+
   console.log(playerTotal);
   if(playerTotal === 21 && playerHand.length === 2) {
     console.log('Black Jack you win!');
     winner = 'player';
-  } else if(playerTotal > 21 && numAces >= 1) {
-    playerTotal -= 10;
-    numAces -= 1;
-    console.log(playerTotal);
-  } else if(playerTotal > 21) {
+  } 
+  else if(playerTotal > 21) {
     console.log('Thats a bust. You lose.');
     winner = 'dealer';
   }
