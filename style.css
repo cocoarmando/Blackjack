@@ -1,0 +1,11 @@
+#stay{
+    background-color: #4CAF50;
+}
+#hit{
+    background-color: #f44336;
+}
+#gameResult{
+    font-size: large;
+    font-weight: bold;
+    margin-top: 25px;
+}

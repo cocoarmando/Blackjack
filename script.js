@@ -20,6 +20,7 @@ console.log(playerHandHtml, dealerHandHtml);
 let hitButton = document.getElementById('hit');
 let stayButton = document.getElementById('stay');
 let nextHandButton = document.getElementById('nextHand');
+let gameResult = document.getElementById('gameResult');
 
 
 /*----- event listeners -----*/
@@ -154,9 +155,11 @@ function compareHands() {
   if(dealerTotal >= playerTotal && dealerTotal <= 21) {
     winner = 'dealer';
     console.log('Dealer won with ' + dealerTotal);
+    gameResult.innerText = `Dealer won with ${dealerTotal}`;
   } else {
     winner = 'player';
     console.log('Player won with ' + playerTotal);
+    gameResult.innerText = `Player won with ${playerTotal}`;
   }
 }
   /*
@@ -199,10 +202,12 @@ function playerCheck() {
   console.log(playerTotal);
   if(playerTotal === 21 && playerHand.length === 2) {
     console.log('Black Jack you win!');
+    gameResult.innerText = `Blackjack! Player won with ${playerTotal}`;
     winner = 'player';
   } 
   else if(playerTotal > 21) {
     console.log('Thats a bust. You lose.');
+    gameResult.innerText = `Thats a bust. You lose.`;
     winner = 'dealer';
   }
 }
@@ -246,6 +251,7 @@ function dealerChoice() {
     if(dealerTotal > 21) {
       winner = 'player';
       console.log('dealer bust!');
+      gameResult.innerText = `Dealer bust! You win.`;
     }
     compareHands();
     render();
@@ -268,8 +274,10 @@ function init() {
   dealerHand = [];
   winner = null;
   initialFaceDown = true;
+  gameResult.innerText = '';
   shuffleDeck();
   dealToPlayer();
   dealToDealer();
+  playerCheck();
   render();
 }
