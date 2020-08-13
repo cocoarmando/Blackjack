@@ -3,7 +3,7 @@ This game allows one player to play against a dealer. As a player you have the o
 
 ## Screenshots:
 ![blackjack screenshot 1](./readmeImages/blackjack.png)
-
+![blackjack screenshot 2](./readmeImages/blackjack1.png)
 ## Technologies used: 
 Javascript, HTML, CSS
 
