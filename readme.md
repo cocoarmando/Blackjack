@@ -1,7 +1,8 @@
-## <Blackjack>: 
+## Blackjack: 
 This game allows one player to play against a dealer. As a player you have the option to hit or stay with the objective of your cards totaling 21. If your cards total more than 21 you will lose at which point you will have to play the next hand. 
 
 ## Screenshots:
+![blackjack screenshot 1](./readmeImages/blackjack.png)
 
 ## Technologies used: 
 Javascript, HTML, CSS
