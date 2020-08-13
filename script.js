@@ -68,22 +68,22 @@ init();
 //compareHands();
 // make function that takes first two cards of deck and assigns to player hand. 
 function dealToPlayer() {
-    playerHand.push(shuffledDeck.pop())
-    playerHand.push(shuffledDeck.pop())
+  playerHand.push(shuffledDeck.pop())
+  playerHand.push(shuffledDeck.pop())
 }
 // make function that takes first two cards of deck and assigns to dealer hand. 
 function dealToDealer() {
-    dealerHand.push(shuffledDeck.pop())
-    dealerHand.push(shuffledDeck.pop())
+  dealerHand.push(shuffledDeck.pop())
+  dealerHand.push(shuffledDeck.pop())
 }
 // make function that takes player hand values and displays them in html
 function displayPlayerHand() {
   playerHandHtml.innerHTML = '';
-    playerHand.forEach(function(card, idx) {
-        let c = `<div class = "card ${card.face}"></div>`
-        playerHandHtml.innerHTML += c;
+  playerHand.forEach(function(card, idx) {
+    let c = `<div class = "card ${card.face}"></div>`
+    playerHandHtml.innerHTML += c;
 
-    })
+  })
 }
 // create multiple divs with class names that relates to value card.
 
