@@ -1,4 +1,4 @@
-console.log('connected');
+
 /*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h'];
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
@@ -16,7 +16,6 @@ let initialFaceDown;
 /*----- cached element references -----*/
 let playerHandHtml = document.getElementById('playerHand');
 let dealerHandHtml = document.getElementById('dealerHand');
-console.log(playerHandHtml, dealerHandHtml);
 let hitButton = document.getElementById('hit');
 let stayButton = document.getElementById('stay');
 let nextHandButton = document.getElementById('nextHand');
@@ -62,14 +61,7 @@ function shuffleDeck() {
     }
     
 }
-// play events
-/*
-shuffleDeck();
-dealToPlayer();
-dealToDealer();
-displayPlayerHand();
-displayDealerHand();
-*/
+
 
 init();
 
@@ -78,13 +70,11 @@ init();
 function dealToPlayer() {
     playerHand.push(shuffledDeck.pop())
     playerHand.push(shuffledDeck.pop())
-    console.log(playerHand);
 }
 // make function that takes first two cards of deck and assigns to dealer hand. 
 function dealToDealer() {
     dealerHand.push(shuffledDeck.pop())
     dealerHand.push(shuffledDeck.pop())
-    console.log(dealerHand);
 }
 // make function that takes player hand values and displays them in html
 function displayPlayerHand() {
@@ -104,10 +94,8 @@ function displayDealerHand() {
     let c = `<div class = "card ${card.face}"></div>`
     if(idx === 1 && initialFaceDown) {
        c = `<div class = "card back-red"></div>`
-       //console.log(initialFaceDown);
        initialFaceDown = false;
     } 
-    //let c = `<div class = "card ${card.face}"></div>`
     dealerHandHtml.innerHTML += c;
     
   })
@@ -121,18 +109,12 @@ function compareHands() {
     dealerTotal += dealerHand[i].value;
     if(dealerHand[i].value === 11){
       numAcesDealer += 1;
-      console.log(numAcesDealer);
     }
   }
   while(dealerTotal > 21 && numAcesDealer) {
     dealerTotal -= 10;
     numAcesDealer--; 
   }
-  //if(dealerTotal > 21 && numAcesDealer >= 1) {
-  //  dealerTotal -= 10;
-  //  numAcesDealer -= 1;
- // }
-  console.log(dealerTotal);
 
   let playerTotal = 0;
   for(let i = 0; i < playerHand.length; i++) {
@@ -145,44 +127,16 @@ function compareHands() {
     playerTotal -= 10;
     numAcesPlayer--;
   }
-
-  //if(playerTotal > 21 && numAcesPlayer >= 1) {
-   // playerTotal -= 10;
-   // numAcesPlayer -= 1;
-  //}
-  console.log(playerTotal);
+  
 
   if(dealerTotal >= playerTotal && dealerTotal <= 21) {
     winner = 'dealer';
-    console.log('Dealer won with ' + dealerTotal);
     gameResult.innerText = `Dealer won with ${dealerTotal}`;
   } else {
     winner = 'player';
-    console.log('Player won with ' + playerTotal);
     gameResult.innerText = `Player won with ${playerTotal}`;
   }
 }
-  /*
-
-  if(playerTotal === 21 && playerHand.length === 2) {
-    winner = 'Player';
-    console.log('Black Jack you win!');
-  } else if(playerTotal > 21) {
-    console.log('Thats a bust. You lose.');
-  }
-
-  */
-
-
-
-  /*
-  dealerHandValue = dealerHand.forEach(function(card) {
-    let total;
-    total = card.value + total;
-    console.log(card.value);
-  })
-  console.log(total);
-  */
 
 
 function playerCheck() {
@@ -201,12 +155,10 @@ function playerCheck() {
 
   console.log(playerTotal);
   if(playerTotal === 21 && playerHand.length === 2) {
-    console.log('Black Jack you win!');
     gameResult.innerText = `Blackjack! Player won with ${playerTotal}`;
     winner = 'player';
   } 
   else if(playerTotal > 21) {
-    console.log('Thats a bust. You lose.');
     gameResult.innerText = `Thats a bust. You lose.`;
     winner = 'dealer';
   }
@@ -214,11 +166,8 @@ function playerCheck() {
 
 function playerHit() {
   if(winner === null) {
-    console.log('hit');
     let addedCard = shuffledDeck.pop();
     playerHand.push(addedCard);
-    console.log(addedCard);
-    console.log(playerHand);
     playerCheck();
     initialFaceDown = true;
     render();
@@ -255,7 +204,6 @@ function dealerChoice() {
     }
     compareHands();
     render();
-    console.log(dealerTotal);
     
     } else {
         return;
